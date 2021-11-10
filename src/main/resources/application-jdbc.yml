@@ -1,0 +1,10 @@
+spring:
+  # Database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/hospital
+    username: postgres
+    password: root
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
