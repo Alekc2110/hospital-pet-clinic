@@ -1,16 +1,16 @@
-package com.my.project.petclinic.hospital.persistance.repository.mapper;
+package com.my.project.petclinic.hospital.persistence.repository.mapper;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.domain.model.Patient;
-import com.my.project.petclinic.hospital.persistance.entity.PatientEntity;
+import com.my.project.petclinic.hospital.persistence.entity.PatientEntity;
 import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class OrikaPatientCustomMapper extends CustomMapper<PatientEntity, Patient> {
 
     @Override

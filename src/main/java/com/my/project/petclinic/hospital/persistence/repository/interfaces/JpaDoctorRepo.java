@@ -1,6 +1,6 @@
-package com.my.project.petclinic.hospital.persistance.repository.interfaces;
+package com.my.project.petclinic.hospital.persistence.repository.interfaces;
 
-import com.my.project.petclinic.hospital.persistance.entity.DoctorEntity;
+import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

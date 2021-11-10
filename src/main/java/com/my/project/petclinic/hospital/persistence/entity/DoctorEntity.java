@@ -1,4 +1,4 @@
-package com.my.project.petclinic.hospital.persistance.entity;
+package com.my.project.petclinic.hospital.persistence.entity;
 
 import lombok.*;
 

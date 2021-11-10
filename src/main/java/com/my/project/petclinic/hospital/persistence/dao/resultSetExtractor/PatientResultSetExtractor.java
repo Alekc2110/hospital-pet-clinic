@@ -1,4 +1,4 @@
-package com.my.project.petclinic.hospital.persistance.dao.resultSetExtractor;
+package com.my.project.petclinic.hospital.persistence.dao.resultSetExtractor;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.domain.model.Patient;
@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class DoctorResultSetExtractor implements ResultSetExtractor<List<Doctor>> {
+public class PatientResultSetExtractor implements ResultSetExtractor<List<Patient>> {
     @Override
-    public List<Doctor> extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public List<Patient> extractData(ResultSet rs) throws SQLException, DataAccessException {
         List<Doctor> doctorList = new ArrayList<>();
         List<Patient> patientList = new ArrayList<>();
         Map<Long, Doctor> doctorKeyDoctorMap = new HashMap<>();
@@ -36,7 +36,7 @@ public class DoctorResultSetExtractor implements ResultSetExtractor<List<Doctor>
             }
             final Long patientKey = rs.getLong("p_id");
             Patient patient = patientKeyPatientMap.get(patientKey);
-            if (patient == null) {
+            if(patient == null){
                 patient = new Patient();
                 patientList.add(patient);
                 patient.setId(patientKey);
@@ -46,13 +46,11 @@ public class DoctorResultSetExtractor implements ResultSetExtractor<List<Doctor>
                 patientKeyPatientMap.put(patientKey, patient);
 
             }
-            if (doctor.getPatients() == null) {
-                doctor.setPatients(patientList);
-            }
-            doctor.getPatients().add(patient);
+            if(patient.getDoctors() == null) {
+                patient.setDoctors(doctorList);
+            } patient.getDoctors().add(doctor);
 
         }
-
-        return doctorList;
+        return patientList;
     }
 }

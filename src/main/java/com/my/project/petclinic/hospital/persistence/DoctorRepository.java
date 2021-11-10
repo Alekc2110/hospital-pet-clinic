@@ -1,4 +1,4 @@
-package com.my.project.petclinic.hospital.persistance;
+package com.my.project.petclinic.hospital.persistence;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
 

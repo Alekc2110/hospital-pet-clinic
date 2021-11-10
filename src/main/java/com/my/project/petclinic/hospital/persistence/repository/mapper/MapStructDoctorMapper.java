@@ -1,7 +1,7 @@
-package com.my.project.petclinic.hospital.persistance.repository.mapper;
+package com.my.project.petclinic.hospital.persistence.repository.mapper;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
-import com.my.project.petclinic.hospital.persistance.entity.DoctorEntity;
+import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

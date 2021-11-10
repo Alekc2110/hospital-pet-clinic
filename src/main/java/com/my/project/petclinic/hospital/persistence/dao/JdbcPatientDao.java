@@ -1,8 +1,8 @@
-package com.my.project.petclinic.hospital.persistance.dao;
+package com.my.project.petclinic.hospital.persistence.dao;
 
 import com.my.project.petclinic.hospital.domain.model.Patient;
-import com.my.project.petclinic.hospital.persistance.PatientRepository;
-import com.my.project.petclinic.hospital.persistance.dao.resultSetExtractor.PatientResultSetExtractor;
+import com.my.project.petclinic.hospital.persistence.PatientRepository;
+import com.my.project.petclinic.hospital.persistence.dao.resultSetExtractor.PatientResultSetExtractor;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;

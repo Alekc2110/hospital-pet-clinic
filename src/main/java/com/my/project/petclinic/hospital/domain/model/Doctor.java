@@ -1,6 +1,5 @@
 package com.my.project.petclinic.hospital.domain.model;
 
-import com.my.project.petclinic.hospital.persistance.entity.PatientEntity;
 import lombok.*;
 
 import java.util.ArrayList;
