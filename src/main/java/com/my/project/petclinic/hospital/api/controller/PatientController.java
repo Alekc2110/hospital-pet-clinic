@@ -1,7 +1,7 @@
 package com.my.project.petclinic.hospital.api.controller;
 
 import com.my.project.petclinic.hospital.api.dto.PatientDto;
-import com.my.project.petclinic.hospital.domain.service.PatientService;
+import com.my.project.petclinic.hospital.domain.service.interfaces.PatientService;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;

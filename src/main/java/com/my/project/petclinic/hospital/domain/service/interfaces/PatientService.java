@@ -1,4 +1,4 @@
-package com.my.project.petclinic.hospital.domain.service;
+package com.my.project.petclinic.hospital.domain.service.interfaces;
 
 import com.my.project.petclinic.hospital.domain.model.Patient;
 

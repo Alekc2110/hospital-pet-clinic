@@ -5,13 +5,12 @@ import com.my.project.petclinic.hospital.api.dto.PatientDto;
 import com.my.project.petclinic.hospital.domain.model.Patient;
 import ma.glasnost.orika.CustomMapper;
 import ma.glasnost.orika.MappingContext;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 public class PatientCustomMapper extends CustomMapper<Patient, PatientDto> {
     @Override
     public void mapAtoB(Patient patient, PatientDto patientDto, MappingContext context) {

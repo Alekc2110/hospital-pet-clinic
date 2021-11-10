@@ -1,7 +1,7 @@
-package com.my.project.petclinic.hospital.domain.service.impl;
+package com.my.project.petclinic.hospital.domain.service;
 
 import com.my.project.petclinic.hospital.domain.model.Patient;
-import com.my.project.petclinic.hospital.domain.service.PatientService;
+import com.my.project.petclinic.hospital.domain.service.interfaces.PatientService;
 import com.my.project.petclinic.hospital.persistance.PatientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

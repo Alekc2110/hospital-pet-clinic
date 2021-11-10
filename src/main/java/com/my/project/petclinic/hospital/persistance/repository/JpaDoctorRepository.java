@@ -1,8 +1,8 @@
-package com.my.project.petclinic.hospital.persistance.repository.impl;
+package com.my.project.petclinic.hospital.persistance.repository;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.persistance.DoctorRepository;
-import com.my.project.petclinic.hospital.persistance.repository.JPADoctorRepository;
+import com.my.project.petclinic.hospital.persistance.repository.interfaces.JpaDoctorRepo;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
@@ -15,10 +15,10 @@ import java.util.stream.Collectors;
 @Profile("dataJpa")
 public class JpaDoctorRepository implements DoctorRepository {
 
-    private final JPADoctorRepository repository;
+    private final JpaDoctorRepo repository;
     private final MapperFacade mapper;
 
-    public JpaDoctorRepository(JPADoctorRepository repository, @Qualifier("doctorJPAMapper") MapperFacade mapper) {
+    public JpaDoctorRepository(JpaDoctorRepo repository, @Qualifier("doctorJPAMapper") MapperFacade mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }

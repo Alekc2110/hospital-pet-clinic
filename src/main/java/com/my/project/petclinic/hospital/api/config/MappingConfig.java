@@ -9,31 +9,34 @@ import com.my.project.petclinic.hospital.domain.model.Patient;
 import lombok.AllArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 
-
+@AllArgsConstructor
 @Configuration
 public class MappingConfig {
 
-    private final DoctorCustomMapper dMapper;
-    private final PatientCustomMapper pMapper;
+    private final DoctorCustomMapper doctorCustomMapper;
+    private final PatientCustomMapper patientCustomMapper;
 
-    public MappingConfig(DoctorCustomMapper dMapper, PatientCustomMapper pMapper) {
-        this.dMapper = dMapper;
-        this.pMapper = pMapper;
+    @Bean
+    public MapperFactory mapperFactory() {
+        return new DefaultMapperFactory.Builder()
+                .mapNulls(Boolean.FALSE)
+                .build();
     }
 
     @Bean(name = "doctorMapper")
     public MapperFacade doctorMapperFacade(MapperFactory mapperFactory) {
-        mapperFactory.classMap(Doctor.class, DoctorDto.class).customize(dMapper).byDefault().register();
+        mapperFactory.classMap(Doctor.class, DoctorDto.class).customize(doctorCustomMapper).byDefault().register();
         return mapperFactory.getMapperFacade();
     }
 
     @Bean(name = "patientMapper")
     public MapperFacade patientMapperFacade(MapperFactory mapperFactory) {
-        mapperFactory.classMap(Patient.class, PatientDto.class).customize(pMapper).byDefault().register();
+        mapperFactory.classMap(Patient.class, PatientDto.class).customize(patientCustomMapper).byDefault().register();
         return mapperFactory.getMapperFacade();
     }
 

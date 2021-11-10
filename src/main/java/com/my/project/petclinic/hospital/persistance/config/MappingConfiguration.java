@@ -9,7 +9,6 @@ import com.my.project.petclinic.hospital.persistance.repository.mapper.OrikaPati
 import lombok.AllArgsConstructor;
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,12 +19,6 @@ public class MappingConfiguration {
     private final OrikaDoctorCustomMapper doctorMapper;
     private final OrikaPatientCustomMapper patientMapper;
 
-    @Bean
-    public MapperFactory mapperFactory() {
-        return new DefaultMapperFactory.Builder()
-                .mapNulls(Boolean.FALSE)
-                .build();
-    }
 
     @Bean(name = "doctorJPAMapper")
     public MapperFacade doctorMapperFacade(MapperFactory mapperFactory) {
