@@ -23,17 +23,13 @@ public class MappingConfiguration {
     private final OrikaPatientCustomMapper patientMapper;
 
 
-    @Bean(name = "doctorJPAMapper")
-    public MapperFacade doctorMapperFacade(MapperFactory mapperFactory) {
+    @Bean("persistenceOrikaMapper")
+    public MapperFacade persistenceMapperFacade(MapperFactory mapperFactory) {
         mapperFactory.classMap(DoctorEntity.class, Doctor.class).customize(doctorMapper).byDefault().register();
-        return mapperFactory.getMapperFacade();
-    }
-
-    @Bean(name = "patientJPAMapper")
-    public MapperFacade patientMapperFacade(MapperFactory mapperFactory) {
         mapperFactory.classMap(PatientEntity.class, Patient.class).customize(patientMapper).byDefault().register();
         return mapperFactory.getMapperFacade();
     }
+
     @Bean
     public MapStructDoctorMapper mapStructDoctorMapper(){
         return Mappers.getMapper(MapStructDoctorMapper.class);

@@ -1,7 +1,7 @@
 package com.my.project.petclinic.hospital.api.controller;
 
 import com.my.project.petclinic.hospital.api.dto.PatientDto;
-import com.my.project.petclinic.hospital.domain.service.interfaces.PatientService;
+import com.my.project.petclinic.hospital.domain.service.PatientService;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
@@ -19,7 +19,7 @@ public class PatientController {
     private final PatientService service;
     private final MapperFacade mapper;
 
-    public PatientController(PatientService service, @Qualifier("patientMapper") MapperFacade mapper) {
+    public PatientController(PatientService service, @Qualifier("controllerOrikaMapper") MapperFacade mapper) {
         this.service = service;
         this.mapper = mapper;
     }

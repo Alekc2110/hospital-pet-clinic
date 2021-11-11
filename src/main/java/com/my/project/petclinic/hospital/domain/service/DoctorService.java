@@ -1,7 +1,6 @@
 package com.my.project.petclinic.hospital.domain.service;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
-import com.my.project.petclinic.hospital.domain.service.interfaces.DoctorService;
 import com.my.project.petclinic.hospital.persistence.DoctorRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,12 +9,11 @@ import java.util.List;
 
 @AllArgsConstructor
 @Service
-public class DoctorServiceImpl implements DoctorService {
+public class DoctorService {
 
-    private final DoctorRepository doctorDao;
+    private final DoctorRepository repository;
 
-    @Override
     public List<Doctor> getAllDoctors() {
-        return doctorDao.findAll();
+        return repository.findAll();
     }
 }

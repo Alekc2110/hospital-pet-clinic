@@ -28,16 +28,17 @@ public class MappingConfig {
                 .build();
     }
 
-    @Bean(name = "doctorMapper")
-    public MapperFacade doctorMapperFacade(MapperFactory mapperFactory) {
+    @Bean("controllerOrikaMapper")
+    public MapperFacade controllerMapperFacade(MapperFactory mapperFactory) {
         mapperFactory.classMap(Doctor.class, DoctorDto.class).customize(doctorCustomMapper).byDefault().register();
-        return mapperFactory.getMapperFacade();
-    }
-
-    @Bean(name = "patientMapper")
-    public MapperFacade patientMapperFacade(MapperFactory mapperFactory) {
         mapperFactory.classMap(Patient.class, PatientDto.class).customize(patientCustomMapper).byDefault().register();
         return mapperFactory.getMapperFacade();
     }
+
+//    @Bean(name = "patientMapper")
+//    public MapperFacade patientMapperFacade(MapperFactory mapperFactory) {
+//        mapperFactory.classMap(Patient.class, PatientDto.class).customize(patientCustomMapper).byDefault().register();
+//        return mapperFactory.getMapperFacade();
+//    }
 
 }

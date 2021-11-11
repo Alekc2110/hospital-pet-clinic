@@ -12,9 +12,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
-@Repository
-@Profile("dataJpa")
-public class JpaPatientRepository implements PatientRepository {
+@Repository(value = "jpaPatientRepository")
+ class JpaPatientRepository implements PatientRepository {
 
     private final JpaPatientRepo repository;
     private final MapStructPatientMapper mapStructPatientMapper;
