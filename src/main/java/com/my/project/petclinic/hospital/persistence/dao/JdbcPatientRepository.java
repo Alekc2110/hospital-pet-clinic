@@ -11,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @AllArgsConstructor
@@ -29,6 +31,7 @@ class JdbcPatientRepository implements PatientRepository {
     @Override
     public Long save(Patient patient) {
         final KeyHolder keyHolder = new GeneratedKeyHolder();
+        Map<String, Object> keys;
         jdbcTemplate.update(con -> {
             final PreparedStatement ps = con.prepareStatement(Queries.SAVE_PATIENT, Statement.RETURN_GENERATED_KEYS);
             ps.setLong(1, patient.getAge());
@@ -36,7 +39,11 @@ class JdbcPatientRepository implements PatientRepository {
             ps.setString(3, patient.getSurName());
             return ps;
         }, keyHolder);
-        return Objects.requireNonNull(keyHolder.getKey()).longValue();
+        if (Objects.requireNonNull(keyHolder.getKeys()).size() > 1) {
+            keys = keyHolder.getKeys();
+            return ((Integer) keys.get("p_id")).longValue();
+        }
+      return Objects.requireNonNull(keyHolder.getKey()).longValue();
     }
 
     @Override

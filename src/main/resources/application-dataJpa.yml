@@ -25,4 +25,4 @@ spring:
       data-locations: classpath:/data-pg.sql
       mode: always
       platform: pg
-#      schema-locations: classpath:/sg.sql
+      schema-locations: classpath:/schema-pg.sql

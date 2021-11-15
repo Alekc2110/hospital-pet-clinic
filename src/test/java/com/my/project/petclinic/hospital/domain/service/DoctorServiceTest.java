@@ -13,6 +13,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
+import java.util.Optional;
+
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
 
 @SpringBootTest(classes = HospitalApplication.class)
 public class DoctorServiceTest {
@@ -40,7 +45,6 @@ public class DoctorServiceTest {
         final List<Doctor> allDoctors = doctorService.getAllDoctors();
         //then
         Assertions.assertEquals(2, allDoctors.size());
-
     }
 
     @Test
@@ -53,8 +57,23 @@ public class DoctorServiceTest {
         final Long savedId = doctorService.save(doctor1);
         //then
         Assertions.assertEquals(3L, savedId);
-
     }
 
+    @Test
+    @DisplayName("should update doctor")
+    public void updateDoctorTest() {
+        //given
+        Doctor doctor =  Doctor.builder().id(1L).name("updated").surName("SurName").position("doctor").build();
+        Doctor updated =  Doctor.builder().id(1L).name("updated").surName("SurName").position("doctor").build();
+        Mockito.when(repository.update(doctor)).thenReturn(updated);
+        //when
+        final Doctor result = doctorService.update(doctor);
+        //then
+        Assertions.assertAll(()->{
+            Assertions.assertEquals(updated.getName(), result.getName());
+            Assertions.assertEquals(updated.getId(), result.getId());
+            Assertions.assertEquals(updated.getPosition(),result.getPosition());
+        });
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.my.project.petclinic.hospital.domain.service;
 
 import com.my.project.petclinic.hospital.HospitalApplication;
+import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.domain.model.Patient;
 import com.my.project.petclinic.hospital.persistence.PatientRepository;
 import org.junit.jupiter.api.Assertions;
@@ -52,7 +53,31 @@ public class PatientServiceTest {
         final Long savedId = patientService.save(patient1);
         //then
         Assertions.assertEquals(5L, savedId);
+    }
 
+    @Test
+    @DisplayName("negative save new patient")
+    public void negativeSaveDoctorTest() {
+        //given
+        Patient patient1 =  null;
+        Mockito.when(repository.save(patient1)).thenReturn(5L);
+        //when
+        final Long savedId = patientService.save(patient1);
+        //then
+        Assertions.assertEquals(5L, savedId);
+    }
+
+    @Test
+    @DisplayName("should update patient")
+    public void updatePatientTest() {
+        //given
+        Patient patient =  Patient.builder().id(1L).name("updated").surName("SurName").age(30).build();
+        Patient updated =  Patient.builder().id(1L).name("updated").surName("SurName").age(30).build();
+        Mockito.when(repository.update(patient)).thenReturn(updated);
+        //when
+        final Patient result = patientService.update(patient);
+        //then
+        Assertions.assertEquals(updated, result);
     }
 
 

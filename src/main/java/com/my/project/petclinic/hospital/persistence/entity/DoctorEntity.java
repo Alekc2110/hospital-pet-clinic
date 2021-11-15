@@ -19,12 +19,8 @@ import java.util.List;
 public class DoctorEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE,
-            generator = "table-generator")
-    @TableGenerator(name = "table-generator",
-            table = "doctor_ids",
-            pkColumnName = "seq_id", initialValue = 10,
-            valueColumnName = "seq_value")
+    @SequenceGenerator(name = "doctors_d_id_seq", sequenceName = "doctors_d_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doctors_d_id_seq")
     @Column(name = "d_id", updatable = false, nullable = false)
     private Long id;
     @Column
