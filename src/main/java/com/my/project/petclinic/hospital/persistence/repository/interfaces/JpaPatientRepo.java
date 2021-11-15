@@ -1,6 +1,7 @@
 package com.my.project.petclinic.hospital.persistence.repository.interfaces;
 
 import com.my.project.petclinic.hospital.persistence.entity.PatientEntity;
+import lombok.NonNull;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,5 +12,6 @@ public interface JpaPatientRepo extends JpaRepository<PatientEntity, Long> {
 
     @Override
     @EntityGraph(attributePaths = {"doctorList"})
+    @NonNull
     List<PatientEntity> findAll();
 }

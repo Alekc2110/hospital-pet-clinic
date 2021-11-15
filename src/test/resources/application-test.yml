@@ -15,8 +15,8 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     open-in-view: false
     generate-ddl: true
-  sql:
-    init:
-      data-locations: classpath:/data-test.sql
-      mode: embedded
-      platform: test
+#  sql:
+#    init:
+#      data-locations: classpath:/data-test.sql
+#      mode: embedded
+#      platform: test

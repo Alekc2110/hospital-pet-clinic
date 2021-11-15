@@ -1,6 +1,7 @@
 package com.my.project.petclinic.hospital.persistence.entity;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,7 +18,12 @@ import java.util.List;
 public class PatientEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE,
+            generator = "table-generator")
+    @TableGenerator(name = "table-generator",
+            table = "patient_ids",
+            pkColumnName = "seq_id", initialValue = 10,
+            valueColumnName = "seq_value")
     @Column(name = "p_id", updatable = false, nullable = false)
     private Long id;
     @Column

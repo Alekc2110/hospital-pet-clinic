@@ -6,14 +6,23 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class PatientService {
 
-    private final PatientRepository patientDao;
+    private final PatientRepository repository;
 
     public List<Patient> getAllPatients() {
-        return patientDao.findAll();
+        return repository.findAll();
+    }
+
+    public Long save(Patient patient) {
+        return repository.save(patient);
+    }
+
+    public Patient update(Patient patient) {
+        return repository.update(patient);
     }
 }

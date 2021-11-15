@@ -35,10 +35,4 @@ public class MappingConfig {
         return mapperFactory.getMapperFacade();
     }
 
-//    @Bean(name = "patientMapper")
-//    public MapperFacade patientMapperFacade(MapperFactory mapperFactory) {
-//        mapperFactory.classMap(Patient.class, PatientDto.class).customize(patientCustomMapper).byDefault().register();
-//        return mapperFactory.getMapperFacade();
-//    }
-
 }
