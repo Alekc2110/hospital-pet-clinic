@@ -1,10 +1,7 @@
-package com.my.project.petclinic.hospital.persistence.repository.interfaces;
+package com.my.project.petclinic.hospital.persistence.JpaRepository.interfaces;
 
 import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
 import lombok.NonNull;
-import net.bytebuddy.TypeCache;
-import net.bytebuddy.build.HashCodeAndEqualsPlugin;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 

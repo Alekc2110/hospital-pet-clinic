@@ -1,25 +1,24 @@
 package com.my.project.petclinic.hospital.persistence;
 
 import com.my.project.petclinic.hospital.domain.model.Patient;
-import com.my.project.petclinic.hospital.persistence.config.PersistenceLayerBooleanCondition;
+import com.my.project.petclinic.hospital.persistence.config.RequestBackground;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Primary
 @Repository
-public class PatientRepositoryStrategy implements PatientRepository {
+class PatientRepositoryStrategy implements PatientRepository {
 
     private final PatientRepository jdbcPatientRepository;
     private final PatientRepository jpaPatientRepository;
-    private final PersistenceLayerBooleanCondition condition;
+    private final RequestBackground condition;
 
 
     public PatientRepositoryStrategy(@Qualifier("jdbcPatientRepository") PatientRepository jdbcPatientRepository,
-                                     @Qualifier("jpaPatientRepository") PatientRepository jpaPatientRepository, PersistenceLayerBooleanCondition condition) {
+                                     @Qualifier("jpaPatientRepository") PatientRepository jpaPatientRepository, RequestBackground condition) {
         this.jdbcPatientRepository = jdbcPatientRepository;
         this.jpaPatientRepository = jpaPatientRepository;
         this.condition = condition;
@@ -27,7 +26,7 @@ public class PatientRepositoryStrategy implements PatientRepository {
 
     @Override
     public List<Patient> findAll() {
-        if (condition.isJdbc()) {
+        if (condition.getJdbc()) {
             return jdbcPatientRepository.findAll();
         } else {
             return jpaPatientRepository.findAll();
@@ -35,8 +34,8 @@ public class PatientRepositoryStrategy implements PatientRepository {
     }
 
     @Override
-    public Long save(Patient patient) {
-        if (condition.isJdbc()) {
+    public Patient save(Patient patient) {
+        if (condition.getJdbc()) {
             return jdbcPatientRepository.save(patient);
         } else {
             return jpaPatientRepository.save(patient);
@@ -45,10 +44,19 @@ public class PatientRepositoryStrategy implements PatientRepository {
 
     @Override
     public Patient update(Patient patient) {
-        if (condition.isJdbc()) {
+        if (condition.getJdbc()) {
             return jdbcPatientRepository.update(patient);
         } else {
             return jpaPatientRepository.update(patient);
+        }
+    }
+
+    @Override
+    public Patient findById(Long id) {
+        if (condition.getJdbc()) {
+            return jdbcPatientRepository.findById(id);
+        } else {
+            return jpaPatientRepository.findById(id);
         }
     }
 }

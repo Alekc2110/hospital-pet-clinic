@@ -5,6 +5,7 @@ import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.domain.service.DoctorService;
 import ma.glasnost.orika.MapperFacade;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,8 +34,9 @@ public class DoctorController {
     }
 
     @PostMapping(value = "/doctors", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public Long save(@RequestBody DoctorDto doctorDto) {
-        return service.save(mapper.map(doctorDto, Doctor.class));
+        return service.save(mapper.map(doctorDto, Doctor.class)).getId();
     }
 
     @PutMapping(value = "/doctors/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

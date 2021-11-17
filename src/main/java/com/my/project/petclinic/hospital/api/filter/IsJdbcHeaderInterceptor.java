@@ -1,6 +1,6 @@
 package com.my.project.petclinic.hospital.api.filter;
 
-import com.my.project.petclinic.hospital.persistence.config.PersistenceLayerBooleanCondition;
+import com.my.project.petclinic.hospital.persistence.config.RequestBackground;
 import lombok.Data;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Data
-public class PersistenceLayerConditionInterceptor implements HandlerInterceptor {
+public class IsJdbcHeaderInterceptor implements HandlerInterceptor {
 
-    private final PersistenceLayerBooleanCondition condition;
+    private final RequestBackground condition;
 
-    public PersistenceLayerConditionInterceptor(PersistenceLayerBooleanCondition condition) {
+    public IsJdbcHeaderInterceptor(RequestBackground condition) {
         this.condition = condition;
     }
 

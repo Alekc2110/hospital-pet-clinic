@@ -1,7 +1,7 @@
 package com.my.project.petclinic.hospital.api.config;
 
-import com.my.project.petclinic.hospital.api.filter.PersistenceLayerConditionInterceptor;
-import com.my.project.petclinic.hospital.persistence.config.PersistenceLayerBooleanCondition;
+import com.my.project.petclinic.hospital.api.filter.IsJdbcHeaderInterceptor;
+import com.my.project.petclinic.hospital.persistence.config.RequestBackground;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,11 +12,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
-    private PersistenceLayerBooleanCondition condition;
+    private RequestBackground condition;
 
     @Bean
-    public PersistenceLayerConditionInterceptor getPersistenceInterceptor(){
-        return new PersistenceLayerConditionInterceptor(condition);
+    public IsJdbcHeaderInterceptor getPersistenceInterceptor(){
+        return new IsJdbcHeaderInterceptor(condition);
     }
 
     @Override

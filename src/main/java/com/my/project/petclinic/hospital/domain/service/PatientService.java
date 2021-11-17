@@ -18,7 +18,7 @@ public class PatientService {
         return repository.findAll();
     }
 
-    public Long save(Patient patient) {
+    public Patient save(Patient patient) {
         return repository.save(patient);
     }
 

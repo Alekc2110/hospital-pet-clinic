@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -18,8 +17,8 @@ public class DoctorService {
         return repository.findAll();
     }
 
-    public Long save(Doctor doctor) {
-       return repository.save(doctor);
+    public Doctor save(Doctor doctor) {
+        return repository.save(doctor);
     }
 
     public Doctor update(Doctor doctor) {

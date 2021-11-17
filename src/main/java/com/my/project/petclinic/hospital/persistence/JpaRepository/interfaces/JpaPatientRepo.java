@@ -1,4 +1,4 @@
-package com.my.project.petclinic.hospital.persistence.repository.interfaces;
+package com.my.project.petclinic.hospital.persistence.JpaRepository.interfaces;
 
 import com.my.project.petclinic.hospital.persistence.entity.PatientEntity;
 import lombok.NonNull;

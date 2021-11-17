@@ -1,24 +1,21 @@
-package com.my.project.petclinic.hospital.persistence.dao.resultSetExtractor;
+package com.my.project.petclinic.hospital.persistence.jdbcRepository.resultSetExtractor;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.domain.model.Patient;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@Service
-public class DoctorResultSetExtractor implements ResultSetExtractor<List<Doctor>> {
+@Component
+public class PatientResultSetExtractor implements ResultSetExtractor<Patient> {
     @Override
-    public List<Doctor> extractData(ResultSet rs) throws SQLException, DataAccessException {
+    public Patient extractData(ResultSet rs) throws SQLException, DataAccessException {
+        Patient patient = null;
         List<Doctor> doctorList = new ArrayList<>();
-        List<Patient> patientList = new ArrayList<>();
         Map<Long, Doctor> doctorKeyDoctorMap = new HashMap<>();
         Map<Long, Patient> patientKeyPatientMap = new HashMap<>();
 
@@ -27,7 +24,6 @@ public class DoctorResultSetExtractor implements ResultSetExtractor<List<Doctor>
             Doctor doctor = doctorKeyDoctorMap.get(doctorKey);
             if (doctor == null) {
                 doctor = new Doctor();
-                doctorList.add(doctor);
                 doctor.setId(doctorKey);
                 doctor.setName(rs.getString("d_name"));
                 doctor.setPosition(rs.getString("d_pos"));
@@ -35,24 +31,23 @@ public class DoctorResultSetExtractor implements ResultSetExtractor<List<Doctor>
                 doctorKeyDoctorMap.put(doctorKey, doctor);
             }
             final Long patientKey = rs.getLong("p_id");
-            Patient patient = patientKeyPatientMap.get(patientKey);
-            if (patient == null) {
+            Patient storedPatient = patientKeyPatientMap.get(patientKey);
+            if (storedPatient == null) {
                 patient = new Patient();
-                patientList.add(patient);
                 patient.setId(patientKey);
                 patient.setName(rs.getString("p_name"));
                 patient.setSurName(rs.getString("p_sn"));
                 patient.setAge(rs.getInt("p_age"));
+                patient.setDoctors(doctorList);
                 patientKeyPatientMap.put(patientKey, patient);
-
             }
-            if (doctor.getPatients() == null) {
-                doctor.setPatients(patientList);
+            if (Objects.requireNonNull(patient).getDoctors() == null) {
+                patient.setDoctors(doctorList);
             }
-            doctor.getPatients().add(patient);
-
+            patient.getDoctors().add(doctor);
         }
 
-        return doctorList;
+
+        return patient;
     }
 }

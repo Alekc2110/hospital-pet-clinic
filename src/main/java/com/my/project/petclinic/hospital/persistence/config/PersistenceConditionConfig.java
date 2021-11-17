@@ -9,7 +9,7 @@ public class PersistenceConditionConfig {
 
     @Bean
     @RequestScope
-    public PersistenceLayerBooleanCondition getPersistenceCondition() {
-        return new PersistenceLayerBooleanCondition();
+    public RequestBackground getPersistenceCondition() {
+        return new RequestBackground();
     }
 }

@@ -1,73 +1,80 @@
 package com.my.project.petclinic.hospital.domain.service;
 
-import com.my.project.petclinic.hospital.HospitalApplication;
 import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.persistence.DoctorRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest(classes = HospitalApplication.class)
+@ExtendWith(MockitoExtension.class)
 public class DoctorServiceTest {
 
-    @Autowired
-    private DoctorService doctorService;
-    @MockBean
+    @InjectMocks
+    private DoctorService subject;
+    @Mock
     private DoctorRepository repository;
 
-    private List<Doctor> testList;
+    @Test
+    @DisplayName("should return not empty list")
+    public void getAllDoctorsShouldReturnNotEmptyListTest() {
+        //given
+        final List<Doctor> testList = List.of(Doctor.builder().id(1L).name("first").surName("surName1").position("pos1").build(),
+                Doctor.builder().id(2L).name("second").surName("surName2").position("pos2").build());
+        when(repository.findAll()).thenReturn(testList);
+        //when
+        final List<Doctor> allDoctors = subject.getAllDoctors();
 
-    @BeforeEach
-    void setUp() {
-        testList = List.of(Doctor.builder().id(1L).name("first").surName("surName1").position("dentist").build(),
-                Doctor.builder().id(2L).name("second").surName("surName2").position("therapist").build());
+        //then
+        assertThat(allDoctors.size()).isNotZero();
     }
 
-
     @Test
-    @DisplayName("should return Optional of doctors list")
-    public void getAllDoctorsTest() {
+    @DisplayName("should return doctors list")
+    public void getAllDoctorsShouldReturnDoctorsListTest() {
         //given
-        Mockito.when(repository.findAll()).thenReturn(testList);
+        final List<Doctor> testList = List.of(Doctor.builder().id(1L).name("first").surName("surName1").position("pos1").build(),
+                Doctor.builder().id(2L).name("second").surName("surName2").position("pos2").build());
+        when(repository.findAll()).thenReturn(testList);
+
         //when
-        final List<Doctor> allDoctors = doctorService.getAllDoctors();
+        final List<Doctor> allDoctors = subject.getAllDoctors();
+
         //then
         Assertions.assertEquals(2, allDoctors.size());
     }
 
     @Test
     @DisplayName("should save new doctor")
-    public void saveDoctorTest() {
+    public void shouldSaveNewDoctorTest() {
         //given
-        Doctor doctor1 =  Doctor.builder().name("name").surName("SurName").position("doctor").build();
-        Mockito.when(repository.save(doctor1)).thenReturn(3L);
+        Doctor doctor = Doctor.builder().build();
+        Doctor savedDoctor =  Doctor.builder().id(5L).name("name").surName("SurName").position("doctor").build();
+        when(repository.save(any(Doctor.class))).thenReturn(savedDoctor);
         //when
-        final Long savedId = doctorService.save(doctor1);
+        final Doctor result = subject.save(doctor);
         //then
-        Assertions.assertEquals(3L, savedId);
+        Assertions.assertEquals(5L, result.getId());
     }
 
     @Test
     @DisplayName("should update doctor")
-    public void updateDoctorTest() {
+    public void shouldUpdateDoctorTest() {
         //given
         Doctor doctor =  Doctor.builder().id(1L).name("updated").surName("SurName").position("doctor").build();
         Doctor updated =  Doctor.builder().id(1L).name("updated").surName("SurName").position("doctor").build();
-        Mockito.when(repository.update(doctor)).thenReturn(updated);
+        when(repository.update(doctor)).thenReturn(updated);
         //when
-        final Doctor result = doctorService.update(doctor);
+        final Doctor result = subject.update(doctor);
         //then
         Assertions.assertAll(()->{
             Assertions.assertEquals(updated.getName(), result.getName());
