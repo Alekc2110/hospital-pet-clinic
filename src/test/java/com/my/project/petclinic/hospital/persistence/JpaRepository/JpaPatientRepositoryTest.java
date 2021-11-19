@@ -1,6 +1,8 @@
 package com.my.project.petclinic.hospital.persistence.JpaRepository;
 
+import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.domain.model.Patient;
+import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
 import com.my.project.petclinic.hospital.persistence.entity.PatientEntity;
 import com.my.project.petclinic.hospital.persistence.JpaRepository.interfaces.JpaPatientRepo;
 import com.my.project.petclinic.hospital.persistence.JpaRepository.mapper.MapStructPatientMapperImpl;
@@ -14,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,22 +31,6 @@ public class JpaPatientRepositoryTest {
     private JpaPatientRepo repository;
     @Mock
     private MapStructPatientMapperImpl mapStructPatientMapper;
-
-
-    private List<PatientEntity> testEntityList;
-    private List<Patient> testUpdatedList;
-    private Patient patient;
-
-    @BeforeEach
-    void setUp() {
-
-        testUpdatedList =  List.of(Patient.builder().id(1L).name("first").surName("surName1").build(),
-                Patient.builder().id(2L).name("second").surName("surName2").build(),
-                Patient.builder().id(3L).name("Max").surName("SurName").build());
-
-        patient =  Patient.builder().name("Max").surName("SurName").age(50).build();
-
-    }
 
     @Test
     @DisplayName("should return list of patients")
@@ -107,4 +94,39 @@ public class JpaPatientRepositoryTest {
         //then
         Assertions.assertEquals(updatedPatient.getName(), result.getName());
     }
+
+    @Test
+    @DisplayName("should return patient by id")
+    public void shouldReturnPatientByIdTest() {
+        //given
+        final Long patientId = 1L;
+        final PatientEntity patientEntity = PatientEntity.builder().id(1L).name("first").surName("surName1").age(51).build();
+        final Patient patient = Patient.builder().id(1L).name("first").surName("surName1").age(51).build();
+
+        when(repository.findById(Mockito.anyLong())).thenReturn(Optional.ofNullable(patientEntity));
+        when(mapStructPatientMapper.entityToModel(patientEntity)).thenReturn(patient);
+
+        //when
+        final Patient result = subject.findById(patientId);
+
+        //then
+        Assertions.assertAll(() -> {
+            Assertions.assertEquals(patient.getId(), result.getId());
+            Assertions.assertEquals(patient.getName(), result.getName());
+            Assertions.assertEquals(patient.getSurName(), result.getSurName());
+            Assertions.assertEquals(patient.getAge(), result.getAge());
+        });
+    }
+
+    @Test
+    @DisplayName("should throw EntityNotFoundException if findById returns null")
+    public void shouldThrowExceptionIfNotFoundPatientByIdTest() {
+        //given
+        final Long patientId = 1L;
+        when(repository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+
+        //then
+        Assertions.assertThrows(EntityNotFoundException.class, ()-> subject.findById(patientId));
+    }
+
 }

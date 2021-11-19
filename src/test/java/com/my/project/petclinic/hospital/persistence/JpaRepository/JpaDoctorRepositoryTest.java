@@ -1,11 +1,10 @@
 package com.my.project.petclinic.hospital.persistence.JpaRepository;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
-import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
 import com.my.project.petclinic.hospital.persistence.JpaRepository.interfaces.JpaDoctorRepo;
 import com.my.project.petclinic.hospital.persistence.JpaRepository.mapper.MapStructDoctorMapperImpl;
+import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,5 +92,39 @@ public class JpaDoctorRepositoryTest {
 
         //then
         Assertions.assertEquals(updatedDoctor.getName(), result.getName());
+    }
+
+    @Test
+    @DisplayName("should return doctor by id")
+    public void shouldReturnDoctorByIdTest() {
+        //given
+        final Long doctorId = 1L;
+        final DoctorEntity doctorEntity = DoctorEntity.builder().id(1L).name("Max").surName("surName").position("surgeon").build();
+        final Doctor doctor = Doctor.builder().id(1L).name("first").surName("surName1").position("dentist").build();
+
+        when(repository.findById(Mockito.anyLong())).thenReturn(Optional.ofNullable(doctorEntity));
+        when(mapStructDoctorMapper.entityToModel(doctorEntity)).thenReturn(doctor);
+
+        //when
+        final Doctor result = subject.findById(doctorId);
+
+        //then
+        Assertions.assertAll(() -> {
+            Assertions.assertEquals(doctor.getId(), result.getId());
+            Assertions.assertEquals(doctor.getName(), result.getName());
+            Assertions.assertEquals(doctor.getSurName(), result.getSurName());
+            Assertions.assertEquals(doctor.getPosition(), result.getPosition());
+        });
+    }
+
+    @Test
+    @DisplayName("should throw EntityNotFoundException if findById returns null")
+    public void shouldThrowExceptionIfNotFoundDoctorByIdTest() {
+        //given
+        final Long doctorId = 1L;
+        when(repository.findById(Mockito.anyLong())).thenReturn(Optional.empty());
+
+        //then
+        Assertions.assertThrows(EntityNotFoundException.class, ()-> subject.findById(doctorId));
     }
 }
