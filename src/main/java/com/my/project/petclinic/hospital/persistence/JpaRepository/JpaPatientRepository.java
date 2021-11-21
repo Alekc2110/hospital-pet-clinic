@@ -1,11 +1,10 @@
 package com.my.project.petclinic.hospital.persistence.JpaRepository;
 
 import com.my.project.petclinic.hospital.domain.model.Patient;
-import com.my.project.petclinic.hospital.persistence.PatientRepository;
-import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
-import com.my.project.petclinic.hospital.persistence.entity.PatientEntity;
 import com.my.project.petclinic.hospital.persistence.JpaRepository.interfaces.JpaPatientRepo;
 import com.my.project.petclinic.hospital.persistence.JpaRepository.mapper.MapStructPatientMapper;
+import com.my.project.petclinic.hospital.persistence.PatientRepository;
+import com.my.project.petclinic.hospital.persistence.entity.PatientEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
