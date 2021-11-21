@@ -8,3 +8,4 @@ spring:
     hikari:
       maximum-pool-size: 5
       minimum-idle: 2
+# additional settings

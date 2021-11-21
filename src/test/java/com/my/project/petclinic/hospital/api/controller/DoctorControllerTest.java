@@ -3,7 +3,6 @@ package com.my.project.petclinic.hospital.api.controller;
 import com.my.project.petclinic.hospital.api.dto.DoctorDto;
 import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.domain.service.DoctorService;
-import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
 import ma.glasnost.orika.MapperFacade;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
