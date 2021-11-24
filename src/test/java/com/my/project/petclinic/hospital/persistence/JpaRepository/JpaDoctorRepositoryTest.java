@@ -2,7 +2,7 @@ package com.my.project.petclinic.hospital.persistence.JpaRepository;
 
 import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.persistence.JpaRepository.interfaces.JpaDoctorRepo;
-import com.my.project.petclinic.hospital.persistence.JpaRepository.mapper.MapStructDoctorMapperImpl;
+import com.my.project.petclinic.hospital.persistence.JpaRepository.mapper.MapStructDoctorMapper;
 import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -27,7 +27,7 @@ public class JpaDoctorRepositoryTest {
     @Mock
     private JpaDoctorRepo repository;
     @Mock
-    private MapStructDoctorMapperImpl mapStructDoctorMapper;
+    private MapStructDoctorMapper mapStructDoctorMapper;
 
 
     @Test

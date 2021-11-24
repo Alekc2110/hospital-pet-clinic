@@ -1,13 +1,10 @@
 package com.my.project.petclinic.hospital.persistence.JpaRepository;
 
-import com.my.project.petclinic.hospital.domain.model.Doctor;
 import com.my.project.petclinic.hospital.domain.model.Patient;
-import com.my.project.petclinic.hospital.persistence.entity.DoctorEntity;
-import com.my.project.petclinic.hospital.persistence.entity.PatientEntity;
 import com.my.project.petclinic.hospital.persistence.JpaRepository.interfaces.JpaPatientRepo;
-import com.my.project.petclinic.hospital.persistence.JpaRepository.mapper.MapStructPatientMapperImpl;
+import com.my.project.petclinic.hospital.persistence.JpaRepository.mapper.MapStructPatientMapper;
+import com.my.project.petclinic.hospital.persistence.entity.PatientEntity;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,7 +27,7 @@ public class JpaPatientRepositoryTest {
     @Mock
     private JpaPatientRepo repository;
     @Mock
-    private MapStructPatientMapperImpl mapStructPatientMapper;
+    private MapStructPatientMapper mapStructPatientMapper;
 
     @Test
     @DisplayName("should return list of patients")
