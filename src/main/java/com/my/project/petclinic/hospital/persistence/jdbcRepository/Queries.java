@@ -6,7 +6,7 @@ public final class Queries {
             "from doctors d left join  patient_doctor pd on pd.d_id = d.d_id left join patients p on pd.p_id = p.p_id";
     public final static String SELECT_ALL_PATIENTS = "select p.p_id as p_id, p.name as p_name, p.sur_name as p_sn, p.age as p_age," +
             " d.d_id as d_id, d.name as d_name, d.position as d_pos, d.sur_name as d_sn from patients p " +
-            "left join  patient_doctor pd on pd.d_id = p.p_id left join doctors d on pd.p_id = d.d_id";
+            "left join  patient_doctor pd on pd.p_id = p.p_id left join doctors d on pd.d_id = d.d_id";
     public final static String SAVE_DOCTOR = "insert into doctors (name, position, sur_name) values (?,?,?)";
     public final static String UPDATE_DOCTOR = "update doctors set name=?, position=?, sur_name=? where d_id=?";
     public final static String SAVE_PATIENT = "insert into patients (age, name, sur_name) values (?,?,?)";
