@@ -57,7 +57,7 @@ public class PatientRepositoryStrategyIT {
     @DisplayName("should save new patient using jdbc")
     public void shouldSaveNewDoctorByJdbcIfConditionTrueTest() {
         //given
-        final Patient patient = Patient.builder().name("firstJdbc").surName("surName1").build();
+        final Patient patient = Patient.builder().name("firstJdbc").surName("surName1").age(35).build();
         when(condition.getJdbc()).thenReturn(true);
 
         //when
@@ -72,7 +72,7 @@ public class PatientRepositoryStrategyIT {
     @DisplayName("should save new patient using jpa")
     public void shouldSaveNewPatientByJpaIfConditionFalseTest() {
         //given
-        final Patient patient = Patient.builder().name("firstJpa").surName("surName2").build();
+        final Patient patient = Patient.builder().name("firstJpa").surName("surName2").age(35).build();
         when(condition.getJdbc()).thenReturn(false);
 
         //when
