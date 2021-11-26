@@ -133,7 +133,7 @@ public class JdbcPatientRepositoryTest {
         when(jdbcTemplate.query(Queries.GET_PATIENT_BY_ID, patientResultSetExtractor, patientId)).thenReturn(patient);
 
         //when
-        final Patient result = subject.update(patient);
+        final Patient result = subject.findById(patientId);
 
         //then
         Assertions.assertAll(()->{

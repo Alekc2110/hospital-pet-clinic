@@ -29,7 +29,7 @@ public class PatientEntity {
     @Column
     private Integer age;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "patient_doctor",
             joinColumns = {@JoinColumn(name = "p_id")},

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Primary
-@Repository
+@Repository(value = "doctorRepositoryStrategy")
 class DoctorRepositoryStrategy implements DoctorRepository {
 
     private final DoctorRepository jdbcDoctorRepository;

@@ -4,11 +4,18 @@ pipeline {
         maven 'Maven'
     }
     stages {
-        stage('CompileTest') {
+        stage('unit tests') {
                steps {
-                echo "start running from jenkinsFile"
+                echo "starts running unit testing"
                 bat "mvn clean compile test"
             }
+        }
+
+        stage('integration tests') {
+                       steps {
+                        echo "starts running integration testing"
+                        bat "mvn -Pfailsafe verify"
+                    }
         }
     }
 }

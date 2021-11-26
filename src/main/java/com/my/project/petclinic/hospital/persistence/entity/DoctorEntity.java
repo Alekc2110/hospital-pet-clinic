@@ -30,7 +30,7 @@ public class DoctorEntity {
     @Column
     private String position;
 
-    @ManyToMany(mappedBy = "doctorList")
+    @ManyToMany(mappedBy = "doctorList", fetch = FetchType.EAGER)
     private List<PatientEntity> patientList = new ArrayList<>();
 
 }
